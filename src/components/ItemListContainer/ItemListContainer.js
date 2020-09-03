@@ -36,7 +36,7 @@ function ItemListContainer() {
     return (
         <div className="container text-center">
             {loading ? <i style={{fontSize:"4rem", marginTop:"2rem", color:"#17a2b8"}} className="fas fa-spinner fa-spin"></i> : 
-            <ItemList products={products}/>
+            <ItemList products={products} category={category}/>
             }
         </div>
     )

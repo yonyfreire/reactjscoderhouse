@@ -1,9 +1,41 @@
 .pointer {
-    cursor: pointer;
-  }
+  cursor: pointer;
+}
 
-  .producto{
-    overflow: hidden;
-    border-radius: 3px;
-    margin-bottom: 30px;
-  }
+.producto {
+  overflow: hidden;
+  border-radius: 3px;
+  margin-bottom: 30px;
+}
+
+.bodyItem {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 19rem;
+}
+
+.img-contenedor img {
+  -webkit-transition: all 0.9s ease; /* Safari y Chrome */
+  -moz-transition: all 0.9s ease; /* Firefox */
+  -o-transition: all 0.9s ease; /* IE 9 */
+  -ms-transition: all 0.9s ease; /* Opera */
+  transition: all 0.4s ease;
+  width: 100%;
+}
+.img-contenedor:hover img {
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -ms-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  transform: scale(1.25);
+}
+.img-contenedor {
+  overflow: hidden;
+  height: 13rem;
+  display: flex;
+  align-items: center;
+}

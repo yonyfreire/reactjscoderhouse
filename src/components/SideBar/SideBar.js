@@ -35,9 +35,9 @@ function SideBar({ show, changeShowState }) {
                     <Link className="link mb-2" onClick={changeShowState} to="/cart"><i className="fas fa-shopping-cart"></i> Mi Carrito</Link>
                     <hr style={{color:"grey", width:"80%", marginLeft:"0"}}/>
                    
-                    <span style={{fontWeight:"bold", color:"grey"}}>Categorias</span>
+                    <span style={{fontWeight:"bold", color:"grey"}}>Categorías</span>
                     {category.map((cat, index) =>
-                        <NavLink className="navLink" activeClassName="activeNavLink" to={`/category/${cat}`} key={index}>{cat}</NavLink>
+                        <NavLink className="navLink" activeClassName="activeNavLink" to={`/category/${cat}`} key={index}>{cat[0].toUpperCase()+ cat.slice(1)}</NavLink>
                     )}
                 </div>
 
