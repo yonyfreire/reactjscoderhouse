@@ -1,0 +1,9 @@
+.pointer {
+    cursor: pointer;
+  }
+
+  .producto{
+    overflow: hidden;
+    border-radius: 3px;
+    margin-bottom: 30px;
+  }

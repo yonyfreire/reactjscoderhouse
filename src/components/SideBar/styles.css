@@ -1,0 +1,75 @@
+.containerBar {
+  position: fixed;
+  padding: 1rem;
+  top: 0;
+  width: 200px;
+  background-color: white;
+  height: 100vh;
+  /* position: absolute; */
+  z-index: 1000;
+  -webkit-box-shadow: 3px 0px 25px -19px rgba(0, 0, 0, 0.83);
+  -moz-box-shadow: 3px 0px 25px -19px rgba(0, 0, 0, 0.83);
+  box-shadow: 3px 0px 25px -19px rgba(0, 0, 0, 0.83);
+  /* opacity: 0.8; */
+}
+
+.hideBar {
+  left: -100%;
+  transition: 750ms;
+}
+.showBar {
+  left: 0px;
+  transition: 300ms;
+}
+
+.containerBack {
+  position: fixed;
+  background: #00000082;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  /* position: absolute; */
+  z-index: 999;
+}
+
+.hideCont {
+  opacity: 0;
+  transition: 100ms;
+  visibility: hidden;
+}
+.showCont {
+  opacity: 1;
+
+  transition: 350ms;
+}
+
+.link {
+  color: grey;
+}
+.navLink {
+  color: grey;
+
+}
+
+
+.activeNavLink {
+  color: grey;
+  background: #efefef;
+  width: 80%;
+  padding-left: 0.5rem;
+}
+
+
+.navLink:hover {
+  text-decoration: none;
+  color: white;
+  background-color: grey;
+  width: 80%;
+  padding-left: 0.5rem;
+  transition: 300ms;
+
+}
+.link:hover {
+  text-decoration: none;
+  color: black;
+}
