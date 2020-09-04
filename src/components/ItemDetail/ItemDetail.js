@@ -6,7 +6,7 @@ import './styles.css';
 function ItemDetail({ id, name, description, stock }) {
     const [count, setCount] = useState();
     // const {cart, provideCart} = useContext(cartContext)
-  const { cart, addItem, quantity, cleanCart } = useCartContext();
+  const { addItem } = useCartContext();
 
 
     return (

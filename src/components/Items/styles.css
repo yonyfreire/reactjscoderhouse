@@ -10,11 +10,10 @@
 
 .bodyItem {
   flex: 1 1 auto;
-  min-height: 1px;
-  padding: 1.25rem;
+  /* padding: 1.25rem; */
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  margin-bottom: 1rem;
+  margin: auto auto 1rem auto;
   max-width: 19rem;
 }
 
@@ -31,11 +30,11 @@
   -moz-transform: scale(1.25);
   -ms-transform: scale(1.25);
   -o-transform: scale(1.25);
-  transform: scale(1.25);
+  transform:  scale(1.25) rotate(-10deg);
 }
 .img-contenedor {
   overflow: hidden;
-  height: 13rem;
+  height: 16rem;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }

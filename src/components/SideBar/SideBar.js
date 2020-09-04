@@ -37,7 +37,7 @@ function SideBar({ show, changeShowState }) {
                    
                     <span style={{fontWeight:"bold", color:"grey"}}>Categorías</span>
                     {category.map((cat, index) =>
-                        <NavLink className="navLink" activeClassName="activeNavLink" to={`/category/${cat}`} key={index}>{cat[0].toUpperCase()+ cat.slice(1)}</NavLink>
+                        <NavLink className="navLink" activeClassName="activeNavLink" to={`/category/${cat.key}`} key={index}>{cat.description}</NavLink>
                     )}
                 </div>
 

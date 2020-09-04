@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Data from "../remote/remote"
+import Data from "../remote/remote";
+import { getFirestore } from "../firebase"
+
 export const filterContext = React.createContext();
 
 export const useFilterContext = () => useContext(filterContext);
@@ -10,23 +12,30 @@ export function FilterProvider({ value, children }) {
   function filtroRepetidos(value, index, self) {
     return self.indexOf(value) === index;
   }
-  function getFilterCategory() {
-    return new Promise((resolve, reject) => {
-      resolve(
-        Data
-      );
-    });
-  }
 
   useEffect(() => {
-    getFilterCategory().then(resp => {
-      let datafilter = []
-      resp.map((item) => {
-        return datafilter = [...datafilter, item.category]
+    const db = getFirestore();
+        const itemCollection = db.collection("categories")
+        itemCollection.get().then((querySnapshot) => {
+        // let datafilter = []
+          if (querySnapshot.size === 0) {
+              console.log("no results")
+          }else{
+
+            setCategory(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })))
+            console.log(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })))
+
+          //   querySnapshot.docs.map((item) => {
+          //     return datafilter = [...datafilter, item.data().category]
+          //   })
+          //   var SinRepetidos = datafilter.filter(filtroRepetidos)
+          //   setCategory(SinRepetidos)
+          // }
+          }
+      }).catch((error) => {
+          console.log("error buscando items", error);
+      }).finally(() => {
       })
-      var SinRepetidos = datafilter.filter(filtroRepetidos)
-      setCategory(SinRepetidos)
-    })
   }, []);
 
   return <filterContext.Provider value={{ category }}>
