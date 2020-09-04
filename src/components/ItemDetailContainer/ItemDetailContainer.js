@@ -32,7 +32,7 @@ function ItemDetailContainer() {
         <div style={{textAlign:"center"}}>
             {
                 loading ? <i style={{ fontSize: "4rem", marginTop: "2rem", color: "#17a2b8" }} className="fas fa-spinner fa-spin"></i> :
-                    <ItemDetail exist={item.length}name={item.name} description={item.description} id={item.id} stock={item.stock} />
+                    <ItemDetail name={item.name} description={item.description} id={item.id} stock={item.stock} />
             }
         </div>
     )

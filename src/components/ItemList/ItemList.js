@@ -12,7 +12,7 @@ function ItemList({ products, category }) {
                     <Item products={products} key={index + prod.id} name={prod.name} description={prod.description} id={prod.id} stock={prod.stock} price={prod.price} />
                     )
                     :
-                    <h4>NO EXISTEN PRODUCTOS EN ESTA CATEGORIA..</h4>}
+                    <h4>Esta categoria no tiene productos asociados...</h4>}
             </div>
         </>
     )
