@@ -13,7 +13,6 @@ function Item({ id, name, description, stock, price }) {
             </Link>
                     <h5 className="card-title">{name}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">Precio:  ${price}</h6>
-                    <p className="card-text">{description}</p>
                 </div>
         </div>
 

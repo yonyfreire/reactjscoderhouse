@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
-import { cartContext } from "../../context/cartContext"
+import { useCartContext } from "../../context/cartContext"
 function Cart() {
-    const { cart, removeItemCart, quantity } = useContext(cartContext)
+    const { cart, removeItemCart, quantity } = useCartContext()
 
     function armarCart() {
         const cartLines = cart.map((item, index) =>
