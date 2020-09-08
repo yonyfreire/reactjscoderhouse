@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Lato&family=Londrina+Solid:wght@900&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Lato&family=Monoton&display=swap'); */
 
 
 .App {
@@ -11,3 +9,22 @@ body{
   font-family: 'Lato', sans-serif;
   padding-top: 3rem;
 }
+
+body::-webkit-scrollbar {
+  width: 10px;     /* Tamaño del scroll en vertical */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(204, 204, 204, 0.911);
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  width: 25px;     /* Tamaño del scroll en vertical */
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+body::-webkit-scrollbar-thumb:active {
+  background-color: grey;
+}
+

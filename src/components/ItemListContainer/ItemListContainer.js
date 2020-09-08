@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import ItemList from "../ItemList/ItemList";
+import Loader from "../Loader/Loader"
 import { getFirestore } from "../../firebase";
 import './styles.css';
 
@@ -29,7 +30,7 @@ function ItemListContainer() {
                 setLoading(false)
             })
         } else {
-            itemCollection.get().then((querySnapshot) => {
+            itemCollection.orderBy("name").limit(12).get().then((querySnapshot) => {
                 if (querySnapshot.size === 0) {
                     setProducts([])
                 } else {
@@ -45,7 +46,9 @@ function ItemListContainer() {
 
     return (
         <div className="container text-center">
-            {loading ? <i style={{ fontSize: "4rem", marginTop: "2rem", color: "#17a2b8" }} className="fas fa-spinner fa-spin"></i> :
+            {loading ?
+                <Loader />
+                :
                 <ItemList products={products} category={category} />
             }
         </div>

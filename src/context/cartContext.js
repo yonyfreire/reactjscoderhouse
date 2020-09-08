@@ -55,7 +55,7 @@ export function CartProvider({ value, children }) {
     setCart(x)
 
   }
-
+console.log(cart);
 
   return <cartContext.Provider value={{ cart, addItem, quantity: cart.length, cleanCart, itemSize, removeItemCart }}>
     {children}

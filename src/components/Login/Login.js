@@ -6,7 +6,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const { usuario } = useUserContext()
-    console.log(usuario);
+
     function registerUser() {
         fireAuth().createUserWithEmailAndPassword(email, pass)
             .then((res) => console.log(res))

@@ -15,6 +15,7 @@
   border-radius: 0.25rem;
   margin: auto auto 1rem auto;
   max-width: 19rem;
+  min-height: 23rem;
 }
 
 .img-contenedor img {
@@ -34,7 +35,7 @@
 }
 .img-contenedor {
   overflow: hidden;
-  height: 16rem;
+  height: 18rem;
   display: flex;
   align-items: baseline;
 }

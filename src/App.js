@@ -5,6 +5,7 @@ import { CartProvider } from "./context/cartContext";
 import { FilterProvider } from "./context/filterContext";
 import { UserProvider } from "./context/userContext";
 import NavBar from "./containers/NavBar.jsx";
+import Footer from "./components/Footer/Footer"
 import Home from "./containers/Home.jsx";
 import Cart from "./components/Cart/Cart"
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
@@ -36,6 +37,7 @@ function App() {
                 <Login />
               </Route>
             </Switch>
+            <Footer/>
           </BrowserRouter>
         </CartProvider>
       </FilterProvider>

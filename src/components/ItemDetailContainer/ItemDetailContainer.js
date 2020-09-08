@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import ItemDetail from "../ItemDetail/ItemDetail";
-import { getFirestore } from "../../firebase"
-import Data from "../../remote/remote"
+import Loader from "../Loader/Loader"
+import { getFirestore } from "../../firebase";
 
 function ItemDetailContainer() {
     const [item, setItem] = useState([]);
@@ -14,7 +14,7 @@ function ItemDetailContainer() {
         const db = getFirestore();
         const itemCollection = db.collection("items")
         const item = itemCollection.doc(id)
-        
+
         item.get().then((doc) => {
             if (!doc.exists) {
                 console.log("no hay item")
@@ -29,10 +29,12 @@ function ItemDetailContainer() {
     }, [id]);
 
     return (
-        <div style={{textAlign:"center"}}>
+        <div style={{ textAlign: "center" }}>
             {
-                loading ? <i style={{ fontSize: "4rem", marginTop: "2rem", color: "#17a2b8" }} className="fas fa-spinner fa-spin"></i> :
-                    <ItemDetail name={item.name} description={item.description} id={item.id} stock={item.stock} />
+                loading ?
+                    <Loader />
+                    :
+                    <ItemDetail price={item.price} image={item.image} name={item.name} description={item.description} id={item.id} stock={item.stock} />
             }
         </div>
     )

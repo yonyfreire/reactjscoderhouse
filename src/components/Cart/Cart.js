@@ -6,7 +6,7 @@ function Cart() {
 
     function armarCart() {
         const cartLines = cart.map((item, index) =>
-            <div key={index}>Articulo: {item.name} / Detalle: {item.description} / cantidad:{item.count} / <i className="fas fa-trash-alt text-danger" style={{ cursor: "pointer" }} onClick={() => removeItemCart(item)}></i></div>
+            <div key={index}><div style={{width:"4rem", height:"4rem", display: "inline-block", overflow:"hidden", verticalAlign:"middle", borderRadius:"0.4rem" }}><img style={{width:"100%"}} alt={"imageCartItem"+index} src={"../image/items/" + item.image}/></div>Articulo: {item.name} / cantidad:{item.count} / Precio: ${item.price} / <i className="fas fa-trash-alt text-danger" style={{ cursor: "pointer" }} onClick={() => removeItemCart(item)}></i></div>
         )
         return (
             <div className=" container mt-5">
@@ -21,13 +21,12 @@ function Cart() {
     return (
         <div style={{ textAlign: "center" }}>
 
-            {/* <span className="h4">PAGINA CON DETALLES DEL CARRO</span> */}
             {quantity > 0 ?
                 armarCart()
                 :
                 <div className="mt-5">
-                    <h1>Tu Carro esta vacío...</h1>
-                    <Link to="/"><button type="button" className="btn btn-info mt-5 ">Volver al Catalogo</button></Link>
+                    <h3>No has seleccionado ningún producto...</h3>
+                    <Link to="/"><button type="button" className="btn btn-dark mt-5 ">Volver al Catalogo</button></Link>
                 </div>
             }
         </div>
