@@ -32,7 +32,7 @@ function SideBar({ show, changeShowState }) {
                                     usuario.displayName :
                                     usuario.email :
                                 <div >
-                                    <button type="button" class="btn btn-outline-secondary " onClick={()=>setModal(true)}>
+                                    <button type="button" className="btn btn-outline-secondary " onClick={()=>setModal(true)}>
                                         inciar sesion
                                 </button>
                                 </div>

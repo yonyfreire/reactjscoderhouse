@@ -22,5 +22,19 @@
   }
   
   .login-form{
-      padding: 1rem;
+      padding: 2rem;
   }
+
+  .opcion{
+    line-height: 15px;
+    font-size: 12px;
+    margin-top: 18px;
+  }
+
+  a{
+      color: black;
+  }
+  a:hover{
+    color: black;
+    font-weight: 400;
+}
