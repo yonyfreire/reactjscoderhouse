@@ -16,7 +16,6 @@ export function FilterProvider({ value, children }) {
         console.log("no results")
       } else {
         setCategory(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })))
-        console.log(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })))
       }
     }).catch((error) => {
       console.log("error buscando items", error);

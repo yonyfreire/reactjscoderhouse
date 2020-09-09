@@ -1,0 +1,26 @@
+
+.containerBackground {
+    position: fixed;
+    background: #00000082;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    /* position: absolute; */
+    z-index: 1590;
+    display: flex
+  }
+  
+  .hideContainer {
+    opacity: 0;
+    transition: 100ms;
+    visibility: hidden;
+  }
+  .showContainer {
+    opacity: 1;
+  
+    transition: 350ms;
+  }
+  
+  .login-form{
+      padding: 1rem;
+  }

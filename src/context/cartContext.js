@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 export const cartContext = React.createContext();
 
@@ -8,10 +8,19 @@ export function CartProvider({ value, children }) {
   const [cart, setCart] = useState(value || []);
   const [itemSize, setItemCant] = useState(0);
 
+
+  useEffect(() => {
+    let count = 0
+    
+    cart.forEach(item => {
+      count= count + item.count
+     })
+     setItemCant(count)
+  }, [cart])
+
   ///Agrego Item nuevo al carro /////
-  async function addItem(newItem) {
+  function addItem(newItem) {
     let exist = 0 // cuando newItem existe en el cart, se setea 1////
-    let count=0 // contador de articulos ///
     var newCart = []
     /// si el carro ya tiene algun item, ingreso a este if/////
     if (cart.length > 0) {
@@ -20,44 +29,45 @@ export function CartProvider({ value, children }) {
         if (element.id === newItem.id) {
           exist = 1
           element.count = element.count + newItem.count
+          element.AcumulatedPrice = element.price * element.count
+
           newCart.push(element);
         } else {
           newCart.push(element);
         }
       });
-      setCart(newCart);
+      /// si el newItem no existe, se suma al newCart///
+      if (exist===0) {
+        newItem.AcumulatedPrice = newItem.price * newItem.count
+        
+        newCart.push(newItem)
+      }
+
+    }else{
+      newItem.AcumulatedPrice = newItem.price * newItem.count
+      newCart.push(newItem)
     }
 
-    /// si el newItem no existe, se suma al newCart///
-    if (exist===0) {
-      newCart.push(newItem)
       setCart(newCart);
-    }
-    /// recorro y sumo los count///
-    newCart.map((item) => {
-      count= count + item.count
-      return setItemCant(count)
-    })
   };
 
   function cleanCart() {
     setCart([]);
   }
 
-
   function removeItemCart(item) {
     const x = cart.filter(cart => item.id !== cart.id)
-    let count = 0
-    x.map((item) => {
-     return count= count + item.count
-    })
-    setItemCant(count)
     setCart(x)
 
   }
-console.log(cart);
 
-  return <cartContext.Provider value={{ cart, addItem, quantity: cart.length, cleanCart, itemSize, removeItemCart }}>
+
+  const priceTotal = cart.reduce((prev, next) => prev + next.AcumulatedPrice, 0);
+  // function priceTotal(){
+  //   return cart.reduce((prev, next) => prev + next.price, 0);
+  // }
+
+  return <cartContext.Provider value={{ cart, addItem, quantity: cart.length, cleanCart, itemSize, removeItemCart, priceTotal }}>
     {children}
   </cartContext.Provider>
 }

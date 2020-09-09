@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from "react-router-dom";
-import { fireAuth} from "../../firebase";
+import { fireAuth } from "../../firebase";
 import { useFilterContext } from "../../context/filterContext";
 import './styles.css';
 import { useUserContext } from "../../context/userContext";
@@ -8,7 +8,9 @@ import Login from "../Login/Login"
 
 function SideBar({ show, changeShowState }) {
     const { category } = useFilterContext();
-    const { usuario } = useUserContext()
+    const { usuario } = useUserContext();
+    const [modal, setModal] = useState(false);
+
 
     return (
         <div>
@@ -29,18 +31,15 @@ function SideBar({ show, changeShowState }) {
                                 usuario.displayName ?
                                     usuario.displayName :
                                     usuario.email :
-                                <div class=" dropdown">
-                                    <button type="button" class="btn btn-outline-secondary " data-toggle="dropdown">
+                                <div >
+                                    <button type="button" class="btn btn-outline-secondary " onClick={()=>setModal(true)}>
                                         inciar sesion
                                 </button>
-                                    <div class="dropdown-menu p-3">
-                                        <Login></Login>
-                                    </div>
                                 </div>
                             }
                         </div>
                         {usuario ?
-                            <span onClick={()=>fireAuth().signOut()} style={{ cursor: "pointer", fontSize: "0.6rem", float: "right", backgroundColor: "grey", color: "white", borderRadius: "7px", paddingLeft: "5px", paddingRight: "5px", textDecoration: "none" }}>
+                            <span onClick={() => fireAuth().signOut()} style={{ cursor: "pointer", fontSize: "0.6rem", float: "right", backgroundColor: "grey", color: "white", borderRadius: "7px", paddingLeft: "5px", paddingRight: "5px", textDecoration: "none" }}>
                                 Cerrar Sesion
                         </span>
                             :
@@ -66,7 +65,11 @@ function SideBar({ show, changeShowState }) {
             </div>
 
             <div onClick={changeShowState} className={show ? "containerBack showCont" : "containerBack hideCont"}></div>
-
+            
+            
+           
+                <Login setModal={setModal} modal={modal}></Login>
+           
         </div>
     )
 }
