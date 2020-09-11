@@ -1,0 +1,38 @@
+.column1{
+    width: 3rem;
+}
+
+.column2{
+    width: 10rem;
+    text-align: initial;
+}
+.column3{
+    text-align: center;
+    width: 10rem;
+}
+.column4{
+    text-align: center;
+    width: 4rem;
+    font-weight: bold;
+}
+.column5{
+    text-align: right;
+    width: 2rem;
+
+}
+
+
+.itemTitle{
+    text-decoration: none;
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.UnitPrice{
+    color: #999999;
+    font-size: 11px;
+    display: block;
+    line-height: 15px;
+}

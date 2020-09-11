@@ -73,3 +73,19 @@
   text-decoration: none;
   color: black;
 }
+
+
+.cerrarSesion{
+  cursor: pointer;
+  font-size: 0.6rem;
+  float: right;
+  background-color: grey;
+  color: white;
+  border-radius: 2px;
+  padding-left: 5px;
+  padding-right: 5px; 
+  text-decoration: none; 
+}
+.cerrarSesion:hover{
+  background-color:red
+}

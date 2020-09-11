@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useUserContext } from "../../context/userContext";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/cartContext";
 import { getFirestore } from "../../firebase";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
+import "./styles.css"
 import Loader from "../Loader/Loader";
 
 function Cart() {
@@ -12,14 +13,13 @@ function Cart() {
     const { cart, removeItemCart, quantity, priceTotal, cleanCart } = useCartContext()
     const { usuario } = useUserContext();
 
-console.log(usuario)
-
     function createOrders() {
         setLoading(true)
         var buyer = {
             name: usuario.displayName,
             mail: usuario.email,
-            phone: usuario.phoneNumber
+            phone: usuario.phoneNumber,
+            uid: usuario.uid
         }
         var items = cart.map((e) =>
             ({
@@ -39,29 +39,43 @@ console.log(usuario)
 
         }
 
-        orders.add(newOrders).then(({id}) => {
-            alert("Orden numero " +id);
-        }).catch(err =>{
+        orders.add(newOrders).then(({ id }) => {
+            alert("Orden numero " + id);
+        }).catch(err => {
             console.log(err)
-        }).finally(()=>{
+        }).finally(() => {
             setLoading(false)
             cleanCart()
         });
     }
-console.log(loading);
+
     function armarCart() {
-        const cartLines = cart.map((item, index) =>
-            <div key={index}>
-                <div style={{ width: "4rem", height: "4rem", display: "inline-block", overflow: "hidden", verticalAlign: "middle", borderRadius: "0.4rem" }}><img style={{ width: "100%" }} alt={"imageCartItem" + index} src={"../image/items/" + item.image} /></div>
-                <div> Articulo: {item.name} / cantidad:{item.count} / Unitario: ${item.price}/ Precio: ${item.AcumulatedPrice} / <i className="fas fa-trash-alt text-danger" style={{ cursor: "pointer" }} onClick={() => removeItemCart(item)}></i></div>
-            </div>
-        )
+        const cartLines =
+            cart.map((item, index) =>
+                <>
+                    <hr></hr>
+                    <div key={index} style={{ display: "flex", width: "100%", justifyContent: "space-around", alignItems: "center" }}>
+                        <div className="column1" ><img style={{ width: "100%" }} alt={"imageCartItem" + index} src={"../image/items/" + item.image} /></div>
+                        <div className="column2">
+                            <div className="itemTitle">{item.name}</div>
+                            <div className="UnitPrice">Unidad: ${item.price}</div>
+                        </div>
+                        <div className="column3">Cantidad: {item.count}</div>
+                        <div className="column4">${item.AcumulatedPrice}</div>
+                        <div className="column5"><i className="fas fa-trash-alt text-danger" style={{ cursor: "pointer" }} onClick={() => removeItemCart(item)}></i></div>
+                    </div>
+                </>
+            )
 
         return (
             <div className=" container mt-5">
-                {cartLines}
-                <div> Total: {priceTotal} </div>
-                <button onClick={() => createOrders()} type="button" className="btn btn-info mt-5 ">comprar</button>
+                <div style={{ maxWidth: "43rem", margin: "auto" }}>
+
+                    {cartLines}
+                    <hr></hr>
+                    <div> Total: ${priceTotal} </div>
+                    <button onClick={() => createOrders()} type="button" className="btn btn-info mt-5 ">comprar</button>
+                </div>
             </div>
         )
 
@@ -69,7 +83,7 @@ console.log(loading);
 
     return (
         <div style={{ textAlign: "center" }}>
-            {loading ? <Loader/>:null}
+            {loading ? <Loader /> : null}
             {quantity > 0 ?
                 armarCart()
                 :

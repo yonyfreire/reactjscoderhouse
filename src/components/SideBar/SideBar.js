@@ -26,7 +26,7 @@ console.log(usuario)
                 <div style={{ justifyContent: "center", display: "flex", alignItems: "center", marginTop: "1rem" }}>
                     {usuario ? <img style={{ width: 35, borderRadius: "50%", marginRight: "0.5rem" }} alt="imgUser" src={usuario.photoURL ? usuario.photoURL : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"}></img> : null}
                     <div>
-                        <div>
+                        <div style={{fontSize:".9rem"}}>
                             {usuario ?
                                 usuario.displayName ?
                                     usuario.displayName :
@@ -39,7 +39,7 @@ console.log(usuario)
                             }
                         </div>
                         {usuario ?
-                            <span onClick={() => fireAuth().signOut()} style={{ cursor: "pointer", fontSize: "0.6rem", float: "right", backgroundColor: "grey", color: "white", borderRadius: "7px", paddingLeft: "5px", paddingRight: "5px", textDecoration: "none" }}>
+                            <span onClick={() => fireAuth().signOut()} className="cerrarSesion">
                                 Cerrar Sesion
                         </span>
                             :
