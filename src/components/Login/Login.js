@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useUserContext } from "../../context/userContext"
-import { fireAuth, googleAuthProvider } from "../../firebase";
+import { fireAuth, googleAuthProvider, getFirestore } from "../../firebase";
+import * as firebase from "firebase/app";
+import Loader from "../Loader/Loader";
 import "./styles.css"
+
+
 function Login({ setModal, modal }) {
+    const [loading, setLoading] = useState(false);
+    const [emailLogin, setEmailLogin] = useState("");
+    const [passLogin, setPassLogin] = useState("");
     const [email, setEmail] = useState("");
     const [email2, setEmai2] = useState("");
     const [pass, setPass] = useState("");
@@ -15,24 +21,23 @@ function Login({ setModal, modal }) {
     const [errPass, setErrPass] = useState("");
     const [errName, setErrName] = useState("");
     const [errPhone, setErrPhone] = useState("");
-    const { usuario } = useUserContext();
 
     function VerificoCampos() {
 
         function verificoName() {
-            if (name !== "" ) {
+            if (name !== "") {
                 setErrName("")
                 return true
-            }else{
+            } else {
                 setErrName("debe completar este campo")
                 return false
             }
         }
         function verificPhone() {
-            if (phone !== "" ) {
+            if (phone !== "") {
                 setErrPhone("")
                 return true
-            }else{
+            } else {
                 setErrPhone("debe completar este campo")
             }
         }
@@ -83,28 +88,63 @@ function Login({ setModal, modal }) {
 
     // REGISTRO USUARIO//
     function registerUser() {
+        setLoading(true)
         fireAuth().createUserWithEmailAndPassword(email, pass)
-            .then((res) =>{
-                 setModal(false)
-                console.log(res)
+            .then((resp) => {
+                console.log(resp);
+                const db = getFirestore()
+                const users = db.collection("users");
+                let userNew = {
+                    displayName: name,
+                    mail: email,
+                    phoneNumber: phone,
+                    uid: resp.user.uid,
+                    photoUrl: resp.user.photoURL
+                }
+                users.add(userNew)
+                    .then((resp) => {
+                        console.log(resp);
+                    }).catch(err => {
+                        console.log(err)
+                    })
+
+                setModal(false)
             })
-            .catch((error) => {
-                console.log("error", error.message)
+            .catch(function (error) {
+                setErrRegister(error.message);
+                console.log(error.message);
+            }).finally(() => {
+                setLoading(false)
             })
+        // .then((res) =>{
+        //     res.updateProfile({
+        //         displayName: name,
+        //         phoneNumber: phone
+        //     })
+        //      setModal(false)
+        //     console.log(res)
+        // })
+        // .catch((error) => {
+        //     console.log("error", error.message)
+        // })
     }
+
     //LOGIN DE USUARIO//
     function signInUser() {
-        fireAuth().signInWithEmailAndPassword(email, pass)
+        setLoading(true)
+        fireAuth().signInWithEmailAndPassword(emailLogin, passLogin)
             .then((res) => {
                 console.log("mail:" + res.user.email + "Uid:" + res.user.uid)
                 setErrLogin("")
-                setModal(false)
                 setEmail("")
                 setPass("")
+                setModal(false)
             })
             .catch((error) => {
                 setErrLogin(error.message)
                 console.log("error", error.message)
+            }).finally(() => {
+                setLoading(false)
             })
     }
 
@@ -115,7 +155,6 @@ function Login({ setModal, modal }) {
                 console.log(res)
                 setModal(false)
             })
-
             .catch((error) => {
                 console.log("error", error.message)
             })
@@ -123,17 +162,47 @@ function Login({ setModal, modal }) {
 
     //LOGIN REDES SOCIALES//
     function socialLogin(provider) {
+        setLoading(true)
         fireAuth()
             .signInWithPopup(provider)
             .then(result => {
                 console.log(result);
+                const db = getFirestore()
+                const users = db.collection("users");
+                users.where('uid', '==', result.user.uid).get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.docs.length === 0) {
+                            let userNew = {
+                                displayName: result.user.displayName,
+                                email: result.user.email,
+                                phoneNumber: result.user.phoneNumber,
+                                uid: result.user.uid,
+                                photoURL: result.user.photoURL
+                            }
+                            users.add(userNew)
+                                .then((resp) => {
+                                    console.log(resp);
+                                }).catch(err => {
+                                    console.log(err)
+                                })
+                        }
+                    })
+
+                setErrLogin("")
             })
             .catch(error => {
+                setErrLogin(error.message)
                 console.log(error);
+            }).finally(() => {
+                setLoading(false)
+                setModal(false)
             });
     }
+
     return (
+
         <div className={modal ? "containerBackground showContainer" : "containerBackground hideContainer"}>
+            {loading ? <Loader /> : null}
             <div style={{ width: "23rem", margin: "auto", backgroundColor: "white" }}>
                 <i className="fas fa-times" style={{ color: "grey", cursor: "pointer", padding: "0.8rem", float: "right" }} onClick={() => setModal(false)}></i>
                 <ul className="nav nav-tabs" role="tablist">
@@ -151,10 +220,10 @@ function Login({ setModal, modal }) {
                     <div className="login-form tab-pane active" id="login" role="tabpanel">
                         {/* <h4 className="text-center">Iniciar Sesion</h4> */}
                         <div className="form-group">
-                            <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" placeholder="Usuario" required="required" value={email} />
+                            <input onChange={(e) => setEmailLogin(e.target.value)} type="email" className="form-control" placeholder="Usuario" required="required" value={emailLogin} />
                         </div>
                         <div className="form-group">
-                            <input onChange={(e) => setPass(e.target.value)} type="password" className="form-control" placeholder="Password" required="required" value={pass} />
+                            <input onChange={(e) => setPassLogin(e.target.value)} type="password" className="form-control" placeholder="Password" required="required" value={passLogin} />
                         </div>
                         <span className="text-danger">{errLogin}</span>
                         <div className="form-group">
@@ -182,7 +251,7 @@ function Login({ setModal, modal }) {
                             <label>Telefono</label>
                             <input onChange={(e) => setPhone(e.target.value)} type="tel" className="form-control" placeholder="Telefono" required="required" value={phone} />
                             <span className="text-danger">{errPhone}</span>
-                        
+
                         </div>
                         <div className="form-group">
                             <label>Email</label>

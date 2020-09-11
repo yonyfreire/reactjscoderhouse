@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useUserContext } from "../../context/userContext";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/cartContext";
 import { getFirestore } from "../../firebase";
@@ -7,17 +8,19 @@ import "firebase/firestore";
 import Loader from "../Loader/Loader";
 
 function Cart() {
-    const [loading, setLoading] = useState([true]);
+    const [loading, setLoading] = useState(false);
     const { cart, removeItemCart, quantity, priceTotal, cleanCart } = useCartContext()
+    const { usuario } = useUserContext();
 
-    const buyer = {
-        name: "Yony Freire",
-        mail: "yonyfreire@gmail.com",
-        phone: "099362792"
-    }
+console.log(usuario)
 
     function createOrders() {
         setLoading(true)
+        var buyer = {
+            name: usuario.displayName,
+            mail: usuario.email,
+            phone: usuario.phoneNumber
+        }
         var items = cart.map((e) =>
             ({
                 id: e.id,
@@ -45,7 +48,7 @@ function Cart() {
             cleanCart()
         });
     }
-
+console.log(loading);
     function armarCart() {
         const cartLines = cart.map((item, index) =>
             <div key={index}>
@@ -66,7 +69,7 @@ function Cart() {
 
     return (
         <div style={{ textAlign: "center" }}>
-
+            {loading ? <Loader/>:null}
             {quantity > 0 ?
                 armarCart()
                 :

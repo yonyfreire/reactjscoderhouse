@@ -11,7 +11,7 @@ function SideBar({ show, changeShowState }) {
     const { usuario } = useUserContext();
     const [modal, setModal] = useState(false);
 
-
+console.log(usuario)
     return (
         <div>
             <div className={show ? "containerBar showBar" : "containerBar hideBar"}>
@@ -58,7 +58,7 @@ function SideBar({ show, changeShowState }) {
 
                     <span style={{ fontWeight: "bold", color: "grey" }}>Categorías</span>
                     {category.map((cat, index) =>
-                        <NavLink className="navLink" activeClassName="activeNavLink" to={`/categories/${cat.key}`} key={index}>{cat.description}</NavLink>
+                        <NavLink onClick={changeShowState} className="navLink" activeClassName="activeNavLink" to={`/categories/${cat.key}`} key={index}>{cat.description}</NavLink>
                     )}
                 </div>
 

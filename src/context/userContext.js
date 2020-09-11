@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import {fireAuth} from "../firebase";
+import { fireAuth, getFirestore } from "../firebase";
 
 export const Auth = React.createContext();
 
@@ -10,19 +10,28 @@ export const UserProvider = ({ children }) => {
     const [showChild, setShowChild] = useState(false);
 
     useEffect(() => {
-        fireAuth().onAuthStateChanged(function(user) {
+        fireAuth().onAuthStateChanged(function (user) {
+            if (user) {
+                const db = getFirestore();
+                const users = db.collection("users")
+                users.where('uid', '==', user.uid).get()
+                    .then((querySnapshot) => querySnapshot.docs.map(doc =>
+                        setUsuario(doc.data())
+                    ))
+            }
             setUsuario(user);
             setShowChild(true);
         });
     }, []);
-
     
+    console.log(usuario);
+
     if (!showChild) {
         return null;
     } else {
         return (
             <Auth.Provider
-                value={{usuario}}
+                value={{ usuario }}
             >
                 {children}
             </Auth.Provider>
