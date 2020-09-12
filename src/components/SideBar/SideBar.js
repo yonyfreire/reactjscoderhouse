@@ -8,10 +8,10 @@ import Login from "../Login/Login"
 
 function SideBar({ show, changeShowState }) {
     const { category } = useFilterContext();
-    const { usuario } = useUserContext();
-    const [modal, setModal] = useState(false);
+    const { usuario, showLogin, setShowLogin } = useUserContext();
+    // const [modal, setModal] = useState(false);
 
-console.log(usuario)
+    console.log(usuario)
     return (
         <div>
             <div className={show ? "containerBar showBar" : "containerBar hideBar"}>
@@ -26,13 +26,13 @@ console.log(usuario)
                 <div style={{ justifyContent: "center", display: "flex", alignItems: "center", marginTop: "1rem" }}>
                     {usuario ? <img style={{ width: 35, borderRadius: "50%", marginRight: "0.5rem" }} alt="imgUser" src={usuario.photoURL ? usuario.photoURL : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"}></img> : null}
                     <div>
-                        <div style={{fontSize:".9rem"}}>
+                        <div style={{ fontSize: ".9rem" }}>
                             {usuario ?
                                 usuario.displayName ?
                                     usuario.displayName :
                                     usuario.email :
                                 <div >
-                                    <button type="button" className="btn btn-outline-secondary " onClick={()=>setModal(true)}>
+                                    <button type="button" className="btn btn-outline-secondary " onClick={() => setShowLogin(true)}>
                                         inciar sesion
                                 </button>
                                 </div>
@@ -65,11 +65,11 @@ console.log(usuario)
             </div>
 
             <div onClick={changeShowState} className={show ? "containerBack showCont" : "containerBack hideCont"}></div>
-            
-            
-           
-                <Login setModal={setModal} modal={modal}></Login>
-           
+
+
+
+            <Login setModal={setShowLogin} modal={showLogin}></Login>
+
         </div>
     )
 }

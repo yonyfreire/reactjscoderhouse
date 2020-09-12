@@ -7,34 +7,31 @@ export const useUserContext = () => useContext(Auth);
 
 export const UserProvider = ({ children }) => {
     const [usuario, setUsuario] = useState(null);
-    const [showChild, setShowChild] = useState(false);
-
+    const [showLogin, setShowLogin] = useState(false);
+    // console.log(showLogin)
+        function MountUser(uid) {
+            const db = getFirestore();
+            const users = db.collection("users");
+            users.where('uid', '==', uid).get()
+                .then((querySnapshot) => querySnapshot.docs.map(doc => setUsuario(doc.data())
+                ));
+        }
+    
     useEffect(() => {
-        fireAuth().onAuthStateChanged(function (user) {
+        fireAuth().onAuthStateChanged((user) => {
             if (user) {
-                const db = getFirestore();
-                const users = db.collection("users")
-                users.where('uid', '==', user.uid).get()
-                    .then((querySnapshot) => querySnapshot.docs.map(doc =>
-                        setUsuario(doc.data())
-                    ))
-            }
-            setUsuario(user);
-            setShowChild(true);
+                MountUser(user.uid)
+            } else { setUsuario(null) }
         });
     }, []);
-    
+
     console.log(usuario);
 
-    if (!showChild) {
-        return null;
-    } else {
-        return (
-            <Auth.Provider
-                value={{ usuario }}
-            >
-                {children}
-            </Auth.Provider>
-        );
-    }
-};
+    return (
+        <Auth.Provider
+            value={{ usuario, MountUser, showLogin , setShowLogin }}
+        >
+            {children}
+        </Auth.Provider>
+    );
+}

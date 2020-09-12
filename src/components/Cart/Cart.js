@@ -5,19 +5,20 @@ import { useCartContext } from "../../context/cartContext";
 import { getFirestore } from "../../firebase";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
-import "./styles.css"
+import "./styles.css";
 import Loader from "../Loader/Loader";
 
 function Cart() {
     const [loading, setLoading] = useState(false);
     const { cart, removeItemCart, quantity, priceTotal, cleanCart } = useCartContext()
-    const { usuario } = useUserContext();
+    const { usuario, setShowLogin } = useUserContext();
 
     function createOrders() {
         setLoading(true)
+        console.log(usuario)
         var buyer = {
             name: usuario.displayName,
-            mail: usuario.email,
+            email: usuario.email,
             phone: usuario.phoneNumber,
             uid: usuario.uid
         }
@@ -52,9 +53,9 @@ function Cart() {
     function armarCart() {
         const cartLines =
             cart.map((item, index) =>
-                <>
+                <div key={index} >
                     <hr></hr>
-                    <div key={index} style={{ display: "flex", width: "100%", justifyContent: "space-around", alignItems: "center" }}>
+                    <div  style={{ display: "flex", width: "100%", justifyContent: "space-around", alignItems: "center" }}>
                         <div className="column1" ><img style={{ width: "100%" }} alt={"imageCartItem" + index} src={"../image/items/" + item.image} /></div>
                         <div className="column2">
                             <div className="itemTitle">{item.name}</div>
@@ -64,17 +65,23 @@ function Cart() {
                         <div className="column4">${item.AcumulatedPrice}</div>
                         <div className="column5"><i className="fas fa-trash-alt text-danger" style={{ cursor: "pointer" }} onClick={() => removeItemCart(item)}></i></div>
                     </div>
-                </>
+                </div>
             )
 
         return (
             <div className=" container mt-5">
                 <div style={{ maxWidth: "43rem", margin: "auto" }}>
-
                     {cartLines}
                     <hr></hr>
-                    <div> Total: ${priceTotal} </div>
-                    <button onClick={() => createOrders()} type="button" className="btn btn-info mt-5 ">comprar</button>
+                    <h5> Total: <strong>${priceTotal}</strong> </h5>
+                    <div>
+                        {usuario ?
+                            <button onClick={() => createOrders()} type="button" className="btn btn-dark btn-block mt-5"> Finalizar Compra de <strong> {usuario.displayName} </strong></button>
+                            :
+                            <button onClick={() => setShowLogin(true)} type="button" className="btn btn-info btn-block mt-5">Checkout</button>
+
+                        }
+                    </div>
                 </div>
             </div>
         )

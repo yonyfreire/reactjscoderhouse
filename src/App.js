@@ -10,7 +10,6 @@ import Home from "./containers/Home.jsx";
 import Cart from "./components/Cart/Cart"
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
-import Login from "./components/Login/Login";
 
 function App() {
 
@@ -32,9 +31,6 @@ function App() {
               </Route>
               <Route path="/cart">
                 <Cart />
-              </Route>
-              <Route exact path="/login">
-                <Login />
               </Route>
             </Switch>
             <Footer/>

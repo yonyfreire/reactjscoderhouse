@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { fireAuth, googleAuthProvider, getFirestore } from "../../firebase";
-import * as firebase from "firebase/app";
+import { useUserContext } from "../../context/userContext";
+import { fireAuth, googleAuthProvider, getFirestore, facebookAuthProvider } from "../../firebase";
 import Loader from "../Loader/Loader";
 import "./styles.css"
 
 
 function Login({ setModal, modal }) {
+    const { MountUser } = useUserContext();
+
     const [loading, setLoading] = useState(false);
     const [emailLogin, setEmailLogin] = useState("");
     const [passLogin, setPassLogin] = useState("");
@@ -22,8 +24,11 @@ function Login({ setModal, modal }) {
     const [errName, setErrName] = useState("");
     const [errPhone, setErrPhone] = useState("");
 
-    function VerificoCampos() {
+    useEffect(() => {
+        console.log(modal)
+    }, [modal])
 
+    function VerificoCampos() {
         function verificoName() {
             if (name !== "") {
                 setErrName("")
@@ -39,6 +44,7 @@ function Login({ setModal, modal }) {
                 return true
             } else {
                 setErrPhone("debe completar este campo")
+                return false
             }
         }
         function verificoPass() {
@@ -60,7 +66,6 @@ function Login({ setModal, modal }) {
                 return false
             }
         }
-
         function verificoEmail() {
             if (email !== "" && email2 !== "") {
                 if (email === email2) {
@@ -96,7 +101,7 @@ function Login({ setModal, modal }) {
                 const users = db.collection("users");
                 let userNew = {
                     displayName: name,
-                    mail: email,
+                    email: email,
                     phoneNumber: phone,
                     uid: resp.user.uid,
                     photoUrl: resp.user.photoURL
@@ -107,8 +112,14 @@ function Login({ setModal, modal }) {
                     }).catch(err => {
                         console.log(err)
                     })
-
-                setModal(false)
+                setModal(false);
+                setErrRegister("");
+                setName("");
+                setPhone("");
+                setEmail("");
+                setEmai2("")
+                setPass("");
+                setPass2("");
             })
             .catch(function (error) {
                 setErrRegister(error.message);
@@ -116,17 +127,6 @@ function Login({ setModal, modal }) {
             }).finally(() => {
                 setLoading(false)
             })
-        // .then((res) =>{
-        //     res.updateProfile({
-        //         displayName: name,
-        //         phoneNumber: phone
-        //     })
-        //      setModal(false)
-        //     console.log(res)
-        // })
-        // .catch((error) => {
-        //     console.log("error", error.message)
-        // })
     }
 
     //LOGIN DE USUARIO//
@@ -136,8 +136,8 @@ function Login({ setModal, modal }) {
             .then((res) => {
                 console.log("mail:" + res.user.email + "Uid:" + res.user.uid)
                 setErrLogin("")
-                setEmail("")
-                setPass("")
+                setEmailLogin("")
+                setPassLogin("")
                 setModal(false)
             })
             .catch((error) => {
@@ -148,17 +148,7 @@ function Login({ setModal, modal }) {
             })
     }
 
-    //CERRAR SESION//
-    function signOutUser() {
-        fireAuth().signOut()
-            .then((res) => {
-                console.log(res)
-                setModal(false)
-            })
-            .catch((error) => {
-                console.log("error", error.message)
-            })
-    }
+
 
     //LOGIN REDES SOCIALES//
     function socialLogin(provider) {
@@ -182,12 +172,12 @@ function Login({ setModal, modal }) {
                             users.add(userNew)
                                 .then((resp) => {
                                     console.log(resp);
+                                    MountUser(result.user.uid)
                                 }).catch(err => {
                                     console.log(err)
                                 })
                         }
                     })
-
                 setErrLogin("")
             })
             .catch(error => {
@@ -215,10 +205,8 @@ function Login({ setModal, modal }) {
                 </ul>
                 <div className="tab-content" style={{ minHeight: "30rem" }}>
 
-
                     {/* LOGIN */}
                     <div className="login-form tab-pane active" id="login" role="tabpanel">
-                        {/* <h4 className="text-center">Iniciar Sesion</h4> */}
                         <div className="form-group">
                             <input onChange={(e) => setEmailLogin(e.target.value)} type="email" className="form-control" placeholder="Usuario" required="required" value={emailLogin} />
                         </div>
@@ -228,20 +216,16 @@ function Login({ setModal, modal }) {
                         <span className="text-danger">{errLogin}</span>
                         <div className="form-group">
                             <button onClick={() => signInUser()} type="submit" className="btn btn-dark btn-block">Ingresar</button>
-                            {/* <button onClick={() => registerUser()} type="submit" className="btn btn-success btn-block">registrar</button>
-                            <button onClick={() => signOutUser()} type="submit" className="btn btn-danger btn-block">LOGOUT</button> */}
-
                             <div className="opcion">Si no cuentas con un usuario, haz clic en la pestaña <strong>REGISTRO</strong>.</div>
-
                             <hr></hr>
-                            <button onClick={() => socialLogin(googleAuthProvider)} type="submit" style={{ backgroundColor: " #dc4e41", color: "white" }} className="btn btn-block"><span style={{ lineHeight: 0, fontSize: "1.3rem", marginRight: 7 }}><i className="fab fa-google"></i></span> <span>  INGRESAR CON GOOGLE</span></button>
+                            <button onClick={() => socialLogin(googleAuthProvider)} type="submit" style={{ backgroundColor: " #dc4e41", color: "white", fontWeight: "bold" }} className="btn btn-block"><span style={{ lineHeight: 0, fontSize: "1.3rem", marginRight: 7 }}><i className="fab fa-google"></i></span> <span>  Continuar con Google</span></button>
+                            <button onClick={() => socialLogin(facebookAuthProvider)} type="submit" style={{ backgroundColor: "#4267b2", color: "white", fontWeight: "bold" }} className="btn btn-block"><span style={{ lineHeight: 0, fontSize: "1.3rem", marginRight: 7 }}><i className="fab fa-google"></i></span> <span>  Continuar con Facebook</span></button>
                         </div>
                     </div>
 
 
-                    {/* registro */}
+                    {/* REGISTRO */}
                     <div className="login-form tab-pane" id="registro" role="tabpanel">
-                        {/* <h4 className="text-center">Registro</h4> */}
                         <div className="form-group">
                             <label>Nombre</label>
                             <input onChange={(e) => setName(e.target.value)} id="inputName" type="text" className="form-control" placeholder="Nombre y Apellido" required="required" value={name} />
@@ -279,13 +263,9 @@ function Login({ setModal, modal }) {
                         <span className="text-danger">{errRegister}</span>
                         <div className="form-group">
                             <button onClick={() => VerificoCampos()} type="submit" className="btn btn-dark btn-block" >Crear cuenta</button>
-                            {/* <button onClick={() => registerUser()} type="submit" className="btn btn-success btn-block">registrar</button>
-                            <button onClick={() => signOutUser()} type="submit" className="btn btn-danger btn-block">LOGOUT</button> */}
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     )
