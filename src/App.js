@@ -7,7 +7,8 @@ import { UserProvider } from "./context/userContext";
 import NavBar from "./containers/NavBar.jsx";
 import Footer from "./components/Footer/Footer"
 import Home from "./containers/Home.jsx";
-import Cart from "./components/Cart/Cart"
+import Cart from "./components/Cart/Cart";
+import Checkout from "./components/Checkout/Checkout"
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 
@@ -31,6 +32,9 @@ function App() {
               </Route>
               <Route path="/cart">
                 <Cart />
+              </Route>
+              <Route path="/checkout">
+                <Checkout />
               </Route>
             </Switch>
             <Footer/>

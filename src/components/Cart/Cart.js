@@ -11,51 +11,52 @@ import Loader from "../Loader/Loader";
 function Cart() {
     const [loading, setLoading] = useState(false);
     const { cart, removeItemCart, quantity, priceTotal, cleanCart } = useCartContext()
-    const { usuario, setShowLogin } = useUserContext();
+    // const { usuario, setShowLogin } = useUserContext();
 
-    function createOrders() {
-        setLoading(true)
-        console.log(usuario)
-        var buyer = {
-            name: usuario.displayName,
-            email: usuario.email,
-            phone: usuario.phoneNumber,
-            uid: usuario.uid
-        }
-        var items = cart.map((e) =>
-            ({
-                id: e.id,
-                name: e.name,
-                price: e.price,
-                count: e.count
-            })
-        )
-        const db = getFirestore()
-        const orders = db.collection("orders");
-        const newOrders = {
-            buyer: buyer,
-            items: items,
-            date: firebase.firestore.Timestamp.fromDate(new Date()),
-            total: priceTotal,
+    // function createOrders() {
+    //     setLoading(true)
+    //     console.log(usuario)
+    //     var buyer = {
+    //         name: usuario.displayName,
+    //         email: usuario.email,
+    //         phone: usuario.phoneNumber,
+    //         uid: usuario.uid
+    //     }
+    //     var items = cart.map((e) =>
+    //         ({
+    //             id: e.id,
+    //             name: e.name,
+    //             price: e.price,
+    //             count: e.count
+    //         })
+    //     )
+    //     const db = getFirestore()
+    //     const orders = db.collection("orders");
+    //     const newOrders = {
+    //         buyer: buyer,
+    //         items: items,
+    //         state: "generada",
+    //         date: firebase.firestore.Timestamp.fromDate(new Date()),
+    //         total: priceTotal,
 
-        }
+    //     }
 
-        orders.add(newOrders).then(({ id }) => {
-            alert("Orden numero " + id);
-        }).catch(err => {
-            console.log(err)
-        }).finally(() => {
-            setLoading(false)
-            cleanCart()
-        });
-    }
+    //     orders.add(newOrders).then(({ id }) => {
+    //         alert("Orden numero " + id);
+    //     }).catch(err => {
+    //         console.log(err)
+    //     }).finally(() => {
+    //         setLoading(false)
+    //         cleanCart()
+    //     });
+    // }
 
     function armarCart() {
         const cartLines =
             cart.map((item, index) =>
                 <div key={index} >
                     <hr></hr>
-                    <div  style={{ display: "flex", width: "100%", justifyContent: "space-around", alignItems: "center" }}>
+                    <div style={{ display: "flex", width: "100%", justifyContent: "space-around", alignItems: "center" }}>
                         <div className="column1" ><img style={{ width: "100%" }} alt={"imageCartItem" + index} src={"../image/items/" + item.image} /></div>
                         <div className="column2">
                             <div className="itemTitle">{item.name}</div>
@@ -75,12 +76,12 @@ function Cart() {
                     <hr></hr>
                     <h5> Total: <strong>${priceTotal}</strong> </h5>
                     <div>
-                        {usuario ?
-                            <button onClick={() => createOrders()} type="button" className="btn btn-dark btn-block mt-5"> Finalizar Compra de <strong> {usuario.displayName} </strong></button>
-                            :
-                            <button onClick={() => setShowLogin(true)} type="button" className="btn btn-info btn-block mt-5">Checkout</button>
+                        {/* {usuario ? */}
+                            {/* <button onClick={() => createOrders()} type="button" className="btn btn-dark btn-block mt-5"> Finalizar Compra de <strong> {usuario.displayName} </strong></button> */}
+                            {/* : */}
+                            <Link  to="/checkout" type="button" className="btn btn-dark btn-block mt-5">Checkout</Link>
 
-                        }
+                        {/* } */}
                     </div>
                 </div>
             </div>
