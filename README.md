@@ -12,4 +12,4 @@ Para instalar el proyecto se debe correr desde el root
 
 Flujo de Navegación:
 
-![](./docs/flujoNavegacion.PNG)
+![](../docs/flujoNavegacion.png)
