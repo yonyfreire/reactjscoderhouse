@@ -7,7 +7,6 @@ import "./styles.css"
 
 function Login({ setModal, modal }) {
     const { MountUser } = useUserContext();
-
     const [loading, setLoading] = useState(false);
     const [emailLogin, setEmailLogin] = useState("");
     const [passLogin, setPassLogin] = useState("");

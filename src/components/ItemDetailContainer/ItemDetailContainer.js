@@ -9,7 +9,6 @@ function ItemDetailContainer() {
     const [loading, setLoading] = useState([true]);
     const { id } = useParams()
 
-    /*  Efecto Montaje */
     useEffect(() => {
         const db = getFirestore();
         const itemCollection = db.collection("items")

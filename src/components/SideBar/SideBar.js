@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, NavLink } from "react-router-dom";
 import { fireAuth } from "../../firebase";
 import { useFilterContext } from "../../context/filterContext";
@@ -9,13 +9,10 @@ import Login from "../Login/Login"
 function SideBar({ show, changeShowState }) {
     const { category } = useFilterContext();
     const { usuario, showLogin, setShowLogin } = useUserContext();
-    // const [modal, setModal] = useState(false);
 
-    console.log(usuario)
     return (
         <div>
             <div className={show ? "containerBar showBar" : "containerBar hideBar"}>
-
                 <div style={{ justifyContent: "space-between", display: "flex", alignItems: "center" }}>
                     <Link to="/" onClick={changeShowState} style={{ color: "grey", cursor: "pointer", textDecoration: "none", padding: "0.5rem" }}>
                         <i className="fas fa-home"></i>
@@ -51,22 +48,18 @@ function SideBar({ show, changeShowState }) {
 
                 <div style={{ justifyContent: "start", display: "flex", flexDirection: "column", marginTop: "1rem" }}>
                     <hr style={{ color: "grey", width: "80%", marginLeft: "0" }} />
-
                     <Link className="link mb-2" to={`/`} onClick={changeShowState}><i className="fas fa-home"></i> Inicio</Link>
                     <Link className="link mb-2" onClick={changeShowState} to="/cart"><i className="fas fa-shopping-cart"></i> Mi Carrito</Link>
+                    <Link className="link mb-2" to={`/searchorder`} onClick={changeShowState}><i className="fas fa-home"></i> Buscar Orden</Link>
                     <hr style={{ color: "grey", width: "80%", marginLeft: "0" }} />
-
                     <span style={{ fontWeight: "bold", color: "grey" }}>Categorías</span>
                     {category.map((cat, index) =>
                         <NavLink onClick={changeShowState} className="navLink" activeClassName="activeNavLink" to={`/categories/${cat.key}`} key={index}>{cat.description}</NavLink>
                     )}
                 </div>
-
             </div>
 
             <div onClick={changeShowState} className={show ? "containerBack showCont" : "containerBack hideCont"}></div>
-
-
 
             <Login setModal={setShowLogin} modal={showLogin}></Login>
 

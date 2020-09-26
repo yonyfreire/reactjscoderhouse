@@ -57,3 +57,13 @@
     font-size: 0.8rem;
     padding-top: 2rem;
   }
+
+  .modalStyle{
+    top: 40%;
+    left: 50%;
+    right: auto;
+    position: absolute;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    transition: 100ms;
+  }
