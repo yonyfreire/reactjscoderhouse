@@ -34,3 +34,19 @@ Este diagrama indica la navegabilidad de la pagina, desde que se inicia hasta te
   
 
 ![flujo](./docs/flujo.png)
+
+
+## Uso de la plataforma
+#### Pantalla principal
+
+> 
+
+ - Al entrar a la pagina, el usuario se encontrara con un banner de
+   publicidad y las ofertas destacadas hasta el momento.
+   >
+ -  Desde allí podrá hacer clic en el articulo de su interés y ver mayores detalles del mismo
+ - Además, contara con un icono , donde podrá ver en tiempo real la cantidad de ítems adquiridos
+ 
+ Muestra:
+ 
+![principal](./docs/principal.gif)
