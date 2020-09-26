@@ -19,12 +19,12 @@ Para instalar e iniciar el proyecto, se debe correr los siguientes comandos desd
 
 > Para el estilo se utilizo CSS, Styles y Boostrap
 
-##### Modulos NPM extrsa instalados
+##### Módulos NPM extra instalados
 
      npm install react-bootstrap
 
 
-> Este modulo fue utilizado exclusivamente para crear un Modal de "verificacion".
+> Este modulo fue utilizado exclusivamente para crear un Modal de "verificación".
 >Cuando el cliente agrega un item al carrito, se le confirma la acción y se le da opción de ir al "carro" o al "catalogo"
 
 
@@ -51,7 +51,7 @@ Este diagrama indica la navegabilidad de la pagina, desde que se inicia hasta te
  
 ![principal](./docs/principal.gif)
 
-#### Sidebar y Login
+#### Sidebar
 
 > El sidebar se accede a través del navbar
 
@@ -61,3 +61,32 @@ Este diagrama indica la navegabilidad de la pagina, desde que se inicia hasta te
  - Link para buscar ordenes según el N° de Boleta. 
 gif:
 ![sidebar](./docs/sidebar.gif)
+
+
+#### Login
+
+> El usuario podrá registrarse proporcionando los datos requeridos (nombre, teléfono, mail)
+> Además podrá acceder a través de su cuenta de google, facebook
+> El usuario podrá acceder a la pantalla de login y registro desde el sidebar y al momento de hacer checkout.
+> Cuando el usuario tiene sus artículos seleccionados, y quiere realizar la compra, en el checkout se le solicita que inicie sesión o ingrese los datos requeridos para finalizar la compra.
+
+#### Cart
+
+> En la vista cart, el cliente vera los artículos seleccionas, su precio unitario y el valor total del carrito.
+> Podrá eliminar los artículos no deseados y acceder al checkout
+
+#### Checkout y Finalizar compra
+
+
+ - Cuando el cliente accede al checkout es porque se decidió adquirir lo
+   que esta en el carrito.
+   
+ - Si el cliente ya ingreso con su usuario, se le mostrara los datos del
+   mismo y el botón dirá "finalizar compra como @usuario".
+   
+ - De lo contrario aparecerá un botón donde le pedirá los datos de
+   inicio de sesion o datos para el registro del mismo.
+   
+ - Luego de finalizada la compra, se le mostrara el numero de Boleta y un link al Home de la pagina
+gif:
+![checkout](./docs/checkout.gif)
