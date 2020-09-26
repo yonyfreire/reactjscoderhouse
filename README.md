@@ -47,6 +47,17 @@ Este diagrama indica la navegabilidad de la pagina, desde que se inicia hasta te
  -  Desde allí podrá hacer clic en el articulo de su interés y ver mayores detalles del mismo
  - Además, contara con un icono , donde podrá ver en tiempo real la cantidad de ítems adquiridos
  
- Muestra:
+ gif:
  
 ![principal](./docs/principal.gif)
+
+#### Sidebar y Login
+
+> El sidebar se accede a través del navbar
+
+ - El cliente encontrara link para "iniciar sesión" donde podrá iniciar o registrarse en la pagina.
+ - Se le muestra una lista de categorías, donde podrá filtrar el listado de artículos según su interés
+ - Acceso directo a "mi Carro"
+ - Link para buscar ordenes según el N° de Boleta. 
+gif:
+![sidebar](./docs/sidebar.gif)
