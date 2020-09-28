@@ -48,7 +48,7 @@ function Cart() {
                 :
                 <div className="mt-5">
                     <h3>No has seleccionado ningún producto...</h3>
-                    <Link to="/"><button type="button" className="btn btn-dark mt-5 ">Volver al Catalogo</button></Link>
+                    <Link to="/"><button type="button" className="btn btn-dark mt-5 ">Volver al Catálogo</button></Link>
                 </div>
             }
         </div>

@@ -16,7 +16,6 @@ function ItemDetailContainer() {
 
         item.get().then((doc) => {
             if (!doc.exists) {
-                console.log("no hay item")
                 return
             }
             setItem({ id: doc.id, ...doc.data() })

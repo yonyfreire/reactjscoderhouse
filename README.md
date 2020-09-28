@@ -75,6 +75,8 @@ gif:
 > En la vista cart, el cliente vera los artículos seleccionas, su precio unitario y el valor total del carrito.
 > Podrá eliminar los artículos no deseados y acceder al checkout
 
+
+
 #### Checkout y Finalizar compra
 
 
@@ -92,5 +94,7 @@ gif:
 ![checkout](./docs/checkout.gif)
 
 
-## MUSTRA FUNCIONAMIENTO FLIJO COMPLETO
+
+
+## MUESTRA FLUJO COMPLETO
 ![final](./docs/final.gif)

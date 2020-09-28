@@ -12,8 +12,8 @@ function ItemList({ products, category }) {
                     )
                     :
                     <>
-                        <h4>Esta categoria no tiene productos asociados...</h4>
-                        <Link to="/"><button type="button" className="btn btn-dark ">Volver a la pagina de inicio</button></Link>
+                        <h4>Esta categoría no tiene productos asociados...</h4>
+                        <Link to="/"><button type="button" className="btn btn-dark ">Volver a la pagina principal</button></Link>
                     </>
                 }
             </div>

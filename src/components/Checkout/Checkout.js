@@ -18,7 +18,6 @@ function Checkout() {
 
     function createOrders() {
         setLoading(true)
-        console.log(usuario)
         var buyer = {
             name: usuario.displayName,
             email: usuario.email,
@@ -70,29 +69,29 @@ function Checkout() {
                                             <h4 className="mt-5"><u>Datos del Usuario</u></h4>
                                             <div><strong>Nombre:</strong> {usuario.displayName}</div>
                                             <div><strong>mail:</strong> {usuario.email}</div>
-                                            <div><strong>Telefono:</strong> {usuario.phoneNumber}</div>
+                                            <div><strong>Teléfono:</strong> {usuario.phoneNumber}</div>
                                             <button onClick={() => createOrders()} type="button" className="btn btn-success btn-block mt-5"> Finalizar Compra como <strong> {usuario.displayName} </strong></button>
                                         </div>
                                         :
                                         <div>
                                             <button onClick={() => setShowLogin(true)} type="button" className="btn btn-danger btn-block mt-5"> ingresa tus datos</button>
-                                            <small><strong>Debes ingresar o registrarte para finalizar la compra</strong></small>
+                                            <small><strong>Ingresa con tu usuario o regístrate para finalizar la compra</strong></small>
                                         </div>
                                     }
                                 </div>
                             </>
                             :
                             <div className="mt-5">
-                                <h3>No hay articulos en esta compra</h3>
+                                <h3>No hay artículos  en esta compra</h3>
                                 <Link to="/"><button type="button" className="btn btn-dark mt-5 ">Inicio</button></Link>
                             </div>
                         :
                         <>
-                            <h1 className="p-4 text-success">Felicidades, compra finalizada con exito</h1>
+                            <h1 className="p-4 text-success">Felicidades, compra finalizada con éxito</h1>
                             <h3>Número de orden: </h3>
                                 <h2><strong> {orderNumber}</strong></h2>
-                            <div><small className="m-4">guarda este numero para buscar tu pedido</small></div>
-                            <Link to="/"><button type="button" className="btn btn-dark mt-5 ">Volver al catalogo</button></Link>
+                            <div><small className="m-4">Conserva este número para buscar tu pedido</small></div>
+                            <Link to="/"><button type="button" className="btn btn-dark mt-5 ">Volver al catálogo</button></Link>
                         </>
                     }
                 </div>

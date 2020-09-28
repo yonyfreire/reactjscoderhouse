@@ -8,7 +8,7 @@ export default function Brief({ cartProps, priceTotal, state }) {
                 <div key={index} >
                     <div style={{ display: "flex", width: "100%", justifyContent: "space-around", alignItems: "center", marginBottom: "1rem" }}>
                         <div style={{ width: "20rem", textAlign: "initial" }}>
-                            <strong>Articulo: {item.name}</strong>
+                            <strong>Artículo: {item.name}</strong>
                         </div>
                         <div style={{ width: "10rem" }}>X {item.count}</div>
                         <strong>${item.price * item.count}</strong>

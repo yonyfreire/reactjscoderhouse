@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useUserContext } from "../../context/userContext";
 import { fireAuth, googleAuthProvider, getFirestore, facebookAuthProvider } from "../../firebase";
 import Loader from "../Loader/Loader";
 import "./styles.css"
-
 
 function Login({ setModal, modal }) {
     const { MountUser } = useUserContext();
@@ -22,10 +21,6 @@ function Login({ setModal, modal }) {
     const [errPass, setErrPass] = useState("");
     const [errName, setErrName] = useState("");
     const [errPhone, setErrPhone] = useState("");
-
-    useEffect(() => {
-        console.log(modal)
-    }, [modal])
 
     function VerificoCampos() {
         function verificoName() {
@@ -95,7 +90,6 @@ function Login({ setModal, modal }) {
         setLoading(true)
         fireAuth().createUserWithEmailAndPassword(email, pass)
             .then((resp) => {
-                console.log(resp);
                 const db = getFirestore()
                 const users = db.collection("users");
                 let userNew = {
@@ -155,7 +149,6 @@ function Login({ setModal, modal }) {
         fireAuth()
             .signInWithPopup(provider)
             .then(result => {
-                console.log(result);
                 const db = getFirestore()
                 const users = db.collection("users");
                 users.where('uid', '==', result.user.uid).get()
@@ -231,26 +224,26 @@ function Login({ setModal, modal }) {
                             <span className="text-danger">{errName}</span>
                         </div>
                         <div className="form-group">
-                            <label>Telefono</label>
+                            <label>Teléfono</label>
                             <input onChange={(e) => setPhone(e.target.value)} type="tel" className="form-control" placeholder="Telefono" required="required" value={phone} />
                             <span className="text-danger">{errPhone}</span>
 
                         </div>
                         <div className="form-group">
                             <label>Email</label>
-                            <input onChange={(e) => setEmail(e.target.value)} type="text" className="form-control" placeholder="Usuario" required="required" value={email} />
+                            <input onChange={(e) => setEmail(e.target.value)} type="text" className="form-control" placeholder="Email" required="required" value={email} />
                             <span className="text-danger">{errEmail}</span>
 
                         </div>
                         <div className="form-group">
                             <label>Confirmar Email</label>
-                            <input onChange={(e) => setEmai2(e.target.value)} type="text" className="form-control" placeholder="Usuario" required="required" value={email2} />
+                            <input onChange={(e) => setEmai2(e.target.value)} type="text" className="form-control" placeholder="Confirmar Email" required="required" value={email2} />
                             <span className="text-danger">{errEmail}</span>
 
                         </div>
                         <div className="form-group">
                             <label>contraseña</label>
-                            <input onChange={(e) => setPass(e.target.value)} type="password" className="form-control" placeholder="Password" required="required" value={pass} />
+                            <input onChange={(e) => setPass(e.target.value)} type="password" className="form-control" placeholder="contraseña" required="required" value={pass} />
                             <span className="text-danger">{errPass}</span>
                         </div>
                         <div className="form-group">

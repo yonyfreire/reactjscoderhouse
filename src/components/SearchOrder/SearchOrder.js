@@ -35,7 +35,7 @@ export default function SearchOrder() {
         <div className="text-center mt-5 container col-md-4">
             {loading ? <Loader /> : null}
             <input onChange={(e) => setIdOrderSearch(e.target.value)} value={idOrderSearch} class="text-center form-control mr-sm-2" type="search" placeholder="Ingresa el número de orden" aria-label="Search" />
-            <button onClick={() => searchOrder()} class="btn btn-outline-success w-100 mt-3" type="submit">Search</button>
+            <button onClick={() => searchOrder()} class="btn btn-outline-success w-100 mt-3" type="submit">Buscar</button>
             <div className="mt-5">
                 <Brief state={dato.state} cartProps={dato.items} priceTotal={dato.total}></Brief>
                 <strong className="text-danger">{msje}</strong>

@@ -61,9 +61,7 @@ export function CartProvider({ value, children }) {
 
   }
 
-
   const priceTotal = cart.reduce((prev, next) => prev + next.AcumulatedPrice, 0);
-
 
   return <cartContext.Provider value={{ cart, addItem, quantity: cart.length, cleanCart, itemSize, removeItemCart, priceTotal }}>
     {children}

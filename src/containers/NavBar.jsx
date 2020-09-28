@@ -9,7 +9,6 @@ export default function NavBar() {
   const changeShowState = () => {
     setShow(!show)
   }
- 
 
   return (
     <div>

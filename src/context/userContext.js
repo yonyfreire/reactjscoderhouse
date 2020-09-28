@@ -8,7 +8,6 @@ export const useUserContext = () => useContext(Auth);
 export const UserProvider = ({ children }) => {
     const [usuario, setUsuario] = useState(null);
     const [showLogin, setShowLogin] = useState(false);
-    // console.log(showLogin)
         function MountUser(uid) {
             const db = getFirestore();
             const users = db.collection("users");
@@ -24,8 +23,6 @@ export const UserProvider = ({ children }) => {
             } else { setUsuario(null) }
         });
     }, []);
-
-    console.log(usuario);
 
     return (
         <Auth.Provider

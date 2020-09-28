@@ -30,14 +30,14 @@ function SideBar({ show, changeShowState }) {
                                     usuario.email :
                                 <div >
                                     <button type="button" className="btn btn-outline-secondary " onClick={() => setShowLogin(true)}>
-                                        inciar sesion
+                                        inciar Sesión
                                 </button>
                                 </div>
                             }
                         </div>
                         {usuario ?
                             <span onClick={() => fireAuth().signOut()} className="cerrarSesion">
-                                Cerrar Sesion
+                                Cerrar Sesión
                         </span>
                             :
                             null
