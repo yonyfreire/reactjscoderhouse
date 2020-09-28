@@ -90,3 +90,7 @@ gif:
  - Luego de finalizada la compra, se le mostrara el numero de Boleta y un link al Home de la pagina
 gif:
 ![checkout](./docs/checkout.gif)
+
+
+## MUSTRA FUNCIONAMIENTO FLIJO COMPLETO
+![final](./docs/final.gif)
